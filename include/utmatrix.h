@@ -163,7 +163,7 @@ TVector<ValType> TVector<ValType>::operator*(const ValType &val)
 template <class ValType> // сложение
 TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 {
-	if ((Size != v.Size) && (StartIndex != v.StartIndex))
+	if (Size != v.Size) 
 	{
 		throw(v);
 	}
@@ -176,7 +176,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 template <class ValType> // вычитание
 TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 {
-	if ((Size != v.Size) && (StartIndex != v.StartIndex))
+	if (Size != v.Size) 
 	{
 		throw(v);
 	}
@@ -189,8 +189,7 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 template <class ValType> // скалярное произведение
 ValType TVector<ValType>::operator*(const TVector<ValType> &v)
 {
-	if ((Size != v.Size) && (StartIndex != v.StartIndex))
-	{
+	if (Size != v.Size) 	{
 		throw(v);
 	}
 	int tmp = 0;
@@ -233,7 +232,7 @@ template <class ValType>
 TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 {
 	if (s > MAX_MATRIX_SIZE) throw (s);
-	//if (StartIndex >= MAX_MATRIX_SIZE) throw(StartIndex);
+	if (StartIndex >= MAX_MATRIX_SIZE) throw(StartIndex);
 	for (int i = 0; i < s; i++)
 		pVector[i] = TVector<ValType>(s - i, i);
 } /*-------------------------------------------------------------------------*/
