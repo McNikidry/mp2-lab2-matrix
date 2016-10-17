@@ -90,9 +90,7 @@ TEST(TVector, can_assign_vector_to_itself)
 
 	TVector<int> tmp(size, si);
 
-	tmp = tmp;
-
-	EXPECT_EQ(tmp, tmp);
+	ASSERT_NO_THROW(tmp = tmp);
 }
 
 TEST(TVector, can_assign_vectors_of_equal_size)
@@ -101,8 +99,6 @@ TEST(TVector, can_assign_vectors_of_equal_size)
 
 	TVector<int> tmp(size, si);
 	TVector<int> tmp1(size, si);
-
-	tmp = tmp1;
 
 	EXPECT_EQ(tmp, tmp1);
 }
@@ -236,28 +232,10 @@ TEST(TVector, cant_add_vectors_with_not_equal_size)
 {
 	int size = 2; int size1 = 3;  int si = 0;
 
-	TVector<int> tmp(size1, si);
 	TVector<int> one(size, si);
 	TVector<int> two(size1, si);
-	TVector<int> three(size1, si);
 
-	one[0] = 2;
-	one[1] = 2;
-	//2 2
-
-	two[0] = 2;
-	two[1] = 2;
-	two[2] = 2;
-	//2 2 2
-
-	three = two + one;
-
-	tmp[0] = 4;
-	tmp[1] = 4;
-	tmp[2] = 2;
-	// 4 4 2;
-
-	EXPECT_NE(tmp, three);
+	ASSERT_ANY_THROW(one+two);
 }
 
 TEST(TVector, can_subtract_vectors_with_equal_size)
@@ -289,28 +267,10 @@ TEST(TVector, cant_subtract_vectors_with_not_equal_size)
 {
 	int size = 2; int size1 = 3;  int si = 0;
 
-	TVector<int> tmp(size1, si);
 	TVector<int> one(size, si);
 	TVector<int> two(size1, si);
-	TVector<int> three(size1, si);
 
-	one[0] = 2;
-	one[1] = 2;
-	//2 2
-
-	two[0] = 5;
-	two[1] = 5;
-	two[2] = 5;
-	//5 5 5
-
-	three = two - one;
-
-	tmp[0] = 3;
-	tmp[1] = 3;
-	tmp[2] = 5;
-	// 5 5 3;
-
-	EXPECT_NE(tmp, three);
+	ASSERT_ANY_THROW(two - one);
 }
 
 TEST(TVector, can_multiply_vectors_with_equal_size)
@@ -340,25 +300,9 @@ TEST(TVector, cant_multiply_vectors_with_not_equal_size)
 {
 	//ADD_FAILURE();
 	int size = 2;  int si = 0;
-	int tmp;
-	int res;
 
 	TVector<int> one(size, si);
 	TVector<int> two(size+1, si);
 
-	one[0] = 2;
-	one[1] = 2;
-	//2 2
-
-	two[0] = 2;
-	two[1] = 2;
-	two[2] = 2;
-	//2 2 2
-
-	res = two * one;
-
-	tmp = 8;
-
-	EXPECT_NE(tmp, res);
+	ASSERT_ANY_THROW(two*one);
 }
-
