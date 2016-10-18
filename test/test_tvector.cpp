@@ -35,10 +35,11 @@ TEST(TVector, copied_vector_is_equal_to_source_one)
 	int SI = 0;
 	TVector<int> one(size, SI);
 
-	TVector<int> two = one;
-
-	two[2] = 2;
 	one[2] = 2;
+
+	TVector<int> two(one);
+
+	//two[2] = 2;
 
 	EXPECT_EQ(one, two);
 }
@@ -74,7 +75,7 @@ TEST(TVector, can_get_start_index)
 
 TEST(TVector, can_set_and_get_element)
 {
-	TVector<int> v(4);
+	TVector<int> v(4,0);
 	v[0] = 4;
 
 	EXPECT_EQ(4, v[0]);
@@ -144,6 +145,9 @@ TEST(TVector, compare_equal_vectors_return_true)
 
 	TVector<int> one(size, si);
 	TVector<int> two(size, si);
+
+	one[1] = 2;
+	two[1] = 2;
 
 	EXPECT_EQ(one, two);
 }
