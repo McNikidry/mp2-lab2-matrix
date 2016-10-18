@@ -4,29 +4,29 @@
 
 TEST(TVector, can_create_vector_with_positive_length)
 {
-  ASSERT_NO_THROW(TVector<int> v(5));
+	ASSERT_NO_THROW(TVector<int> v(5));
 }
 
 TEST(TVector, cant_create_too_large_vector)
 {
-  ASSERT_ANY_THROW(TVector<int> v(MAX_VECTOR_SIZE + 1));
+	ASSERT_ANY_THROW(TVector<int> v(MAX_VECTOR_SIZE + 1));
 }
 
 TEST(TVector, throws_when_create_vector_with_negative_length)
 {
-  ASSERT_ANY_THROW(TVector<int> v(-5));
+	ASSERT_ANY_THROW(TVector<int> v(-5));
 }
 
 TEST(TVector, throws_when_create_vector_with_negative_startindex)
 {
-  ASSERT_ANY_THROW(TVector<int> v(5, -2));
+	ASSERT_ANY_THROW(TVector<int> v(5, -2));
 }
 
 TEST(TVector, can_create_copied_vector)
 {
-  TVector<int> v(10);
+	TVector<int> v(10);
 
-  ASSERT_NO_THROW(TVector<int> v1(v));
+	ASSERT_NO_THROW(TVector<int> v1(v));
 }
 
 TEST(TVector, copied_vector_is_equal_to_source_one)
@@ -45,43 +45,53 @@ TEST(TVector, copied_vector_is_equal_to_source_one)
 
 TEST(TVector, copied_vector_has_its_own_memory)
 {
-  ADD_FAILURE();
+	int size = 4; int si = 0;
+
+	TVector<int> tmp(size, si);
+
+	tmp[2] = 2;
+
+	TVector<int> tmp1(tmp);
+
+	tmp1[2] = 3;
+
+	EXPECT_NE(tmp, tmp1);
 }
 
 TEST(TVector, can_get_size)
 {
-  TVector<int> v(4);
+	TVector<int> v(4);
 
-  EXPECT_EQ(4, v.GetSize());
+	EXPECT_EQ(4, v.GetSize());
 }
 
 TEST(TVector, can_get_start_index)
 {
-  TVector<int> v(4, 2);
+	TVector<int> v(4, 2);
 
-  EXPECT_EQ(2, v.GetStartIndex());
+	EXPECT_EQ(2, v.GetStartIndex());
 }
 
 TEST(TVector, can_set_and_get_element)
 {
-  TVector<int> v(4);
-  v[0] = 4;
+	TVector<int> v(4);
+	v[0] = 4;
 
-  EXPECT_EQ(4, v[0]);
+	EXPECT_EQ(4, v[0]);
 }
 
 TEST(TVector, throws_when_set_element_with_negative_index)
 {
 	TVector<int> tmp;
 
-	ASSERT_ANY_THROW( tmp[-2]);
+	ASSERT_ANY_THROW(tmp[-2]);
 }
 
 TEST(TVector, throws_when_set_element_with_too_large_index)
 {
 	TVector<int> tmp;
 
-	ASSERT_ANY_THROW(tmp[MAX_VECTOR_SIZE+1]);
+	ASSERT_ANY_THROW(tmp[MAX_VECTOR_SIZE + 1]);
 }
 
 TEST(TVector, can_assign_vector_to_itself)
@@ -104,8 +114,16 @@ TEST(TVector, can_assign_vectors_of_equal_size)
 }
 
 TEST(TVector, assign_operator_change_vector_size)
-{ 
-	ADD_FAILURE();
+{
+	int size = 4; int si = 0;  int size1 = size + 2;
+
+	TVector<int> tmp(size, si);
+	TVector<int> tmp1(size1, si);
+
+	tmp = tmp1;
+
+
+	EXPECT_EQ(size1, tmp.GetSize());
 }
 
 TEST(TVector, can_assign_vectors_of_different_size)
@@ -153,15 +171,16 @@ TEST(TVector, can_add_scalar_to_vector)
 {
 	int val = 3;
 
-	TVector<int> one(3, 0);
-	TVector<int> two(3, 0);
+	TVector<int> one(2, 0);
+	TVector<int> two(2, 0);
 
-	one = one + val;// 3 3 3 
+	one[0] = 1;
+	one[1] = 1;
+	one = one + val;// 4 4 
 
-	two[0] = val;
-	two[1] = val;
-	two[2] = val;
-	//3 3 3 
+	two[0] = 4;
+	two[1] = 4;
+	//4 4  
 
 	EXPECT_EQ(one, two);
 }
@@ -235,7 +254,7 @@ TEST(TVector, cant_add_vectors_with_not_equal_size)
 	TVector<int> one(size, si);
 	TVector<int> two(size1, si);
 
-	ASSERT_ANY_THROW(one+two);
+	ASSERT_ANY_THROW(one + two);
 }
 
 TEST(TVector, can_subtract_vectors_with_equal_size)
@@ -298,11 +317,10 @@ TEST(TVector, can_multiply_vectors_with_equal_size)
 
 TEST(TVector, cant_multiply_vectors_with_not_equal_size)
 {
-	//ADD_FAILURE();
 	int size = 2;  int si = 0;
 
 	TVector<int> one(size, si);
-	TVector<int> two(size+1, si);
+	TVector<int> two(size + 1, si);
 
 	ASSERT_ANY_THROW(two*one);
 }
